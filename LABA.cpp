@@ -30,7 +30,6 @@ class customer
 			cout << "- - - - - - - - - - - - - - -"<< endl;
 		}
 
-//		static void 
 
 		static void personalread(customer a)
 		{
@@ -136,11 +135,6 @@ class customer
 	void get()
 	{
 		cout << "\n" << secname << " " << firname << " " << patron << " " << endl;
-	}
-	
-	void parsing(char* k)
-	{
-//		getline(k, secname, ' ' );
 	}
 	
 	void get(customer *a)
