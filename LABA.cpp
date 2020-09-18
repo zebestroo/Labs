@@ -20,12 +20,6 @@ class customer
 		{
 			cout << "- - - - - - - - - - - - - - -"<< endl;
 			cout << "Credit card number(Номер кредитной карты) : "; cin >> a.data.cardnum;
-			for(int i = 0; i < 19; i++)
-				if((a.data.cardnum[i] > 9 || a.data.cardnum[i] < 0) && a.data.cardnum[i] != ' ')
-				{
-					cout << "Incorrect number, try again(Невозможный номер, попробуйте снова)" << endl;
-					cin >> a.data.cardnum;
-				}
 			cout << "Bank account(Номер банковского счёта) : "; cin >> a.data.banknum;
 			cout << "- - - - - - - - - - - - - - -"<< endl;
 		}
@@ -107,7 +101,7 @@ class customer
 				cout << "Хорошо\n" << endl;
 	
 	}
-	void show(customer a, bool r)
+	void show(bool r)
 	{
 		if(r)
 		{
@@ -116,9 +110,14 @@ class customer
 			cout << "Write diaposon: " << endl;
 			cin >> one;
 			cin >> two;
-			for(int i = 0; i < 19; i++)
-				if(a.data.cardnum[i] >= one[i] || a.data.cardnum[i] <= two[i])
-					get()
+			{
+				bool l;
+				for(int i = 0; i < 19; i++)
+					if(data.cardnum[i] >= one[i] || data.cardnum[i] <= two[i])
+						l = 1;
+				if(l)
+					get();
+			}
 		}
 		else
 		{
@@ -127,8 +126,14 @@ class customer
 			cout << "Введите диапозон: " << endl;
 			cin >> one;
 			cin >> two;
-			for(int i = 0; i < 19; i++)
-				if(a.data.cardnum[i] >= one[i] || a.data.cardnum[i] <= two[i])
+			{
+				bool l;
+				for(int i = 0; i < 19; i++)
+					if(data.cardnum[i] >= one[i] || data.cardnum[i] <= two[i])
+						l = 1;
+				if(l)
+					get();
+			}	 
 		}
 
 	}	
@@ -255,6 +260,8 @@ int main()
 				cout << "\nСделано!" << endl;
 	}
 
+	for(int i = 0; i < n; i++)
+		M[i].show(r);
 	}
 	else
 	{
@@ -316,8 +323,9 @@ int main()
 			else
 				cout << "\nСделано!" << endl; 
 	}
-	}
 	for(int i = 0; i < n; i++)
+		M[i].show(r);
+	}
 
 	
 	return 0;
