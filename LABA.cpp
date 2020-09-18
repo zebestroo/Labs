@@ -19,8 +19,14 @@ class customer
 		static void personalwrite(customer a)	
 		{
 			cout << "- - - - - - - - - - - - - - -"<< endl;
-			cout << "Credit card number : "; cin >> a.data.cardnum;
-			cout << "Bank account : "; cin >> a.data.banknum;
+			cout << "Credit card number(Номер кредитной карты) : "; cin >> a.data.cardnum;
+			for(int i = 0; i < 19; i++)
+				if((a.data.cardnum[i] > 9 || a.data.cardnum[i] < 0) && a.data.cardnum[i] != ' ')
+				{
+					cout << "Incorrect number, try again(Невозможный номер, попробуйте снова)" << endl;
+					cin >> a.data.cardnum;
+				}
+			cout << "Bank account(Номер банковского счёта) : "; cin >> a.data.banknum;
 			cout << "- - - - - - - - - - - - - - -"<< endl;
 		}
 
@@ -29,8 +35,8 @@ class customer
 		static void personalread(customer a)
 		{
 			cout << "- - - - - - - - - - - - - - -"<< endl;
-			cout << "Credit card number : " << a.data.cardnum << endl;
-			cout << "Bank account : " << a.data.banknum << endl;
+			cout << "Credit card number(Номер кредитной карты) : " << a.data.cardnum << endl;
+			cout << "Bank account(Номер банковского счёта) : " << a.data.banknum << endl;
 			cout << "- - - - - - - - - - - - - - -"<< endl;
 		}
 	};
@@ -38,63 +44,98 @@ class customer
 	string firname;
 	string secname;
 	string patron;
-	void set(customer a)
+	void set(customer a, bool r)
 	{
+		if(r)
+		{
+			cout << "First name : "; cin >> firname;
+			cout << "Second name : "; cin >> secname;		
+			cout << "Patronymic : "; cin >> patron;	
+			cout << "Address : "; cin >> address;
+			cout << "Phone : "; cin >> phone;
+			int s = 1;
+			while(s)
+			{
+				for(int i = 0; i < 13; i++)
+					if(phone[0] == '+' && phone[1] == '3' && phone[2] == '7' && phone[3] == '5')
+						s = 0;
+					else
+					{
+						cout << "Incorrect number, please try again: ";
+						cin >> phone;
+					}
+			}
+		}
+		else
+		{
+			cout << "Имя : "; cin >> firname;
+			cout << "Фамилия : "; cin >> secname;		
+			cout << "Отчество : "; cin >> patron;	
+			cout << "Адрес : "; cin >> address;
+			cout << "Телефон : "; cin >> phone;
+			int s = 1;
+			while(s)
+			{
+				for(int i = 0; i < 13; i++)
+					if(phone[0] == '+' && phone[1] == '3' && phone[2] == '7' && phone[3] == '5')
+						s = 0;
+					else
+					{
+						cout << "Невозможный номер, попробуйте ещё раз: ";
+						cin >> phone;
+					}
+			}
+		}
+
+		if(r)
+			cout << "\nWould you confirm personal date? (Yes/No): "; 
+		else
+			cout << "\nХотите заполнить личные данные? (Да/Нет)";
 		string k;
-		cout << "First name : "; cin >> firname;
-		cout << "Second name : "; cin >> secname;		
-		cout << "Patronymic : "; cin >> patron;	
-		cout << "Address : "; cin >> address;
-		cout << "Phone : "; cin >> phone;
-		int s = 1;
-		while(s)
-			for(int i = 0; i < 13; i++)
-				if(phone[0] == '+' && phone[1] == '3' && phone[2] == '7' && phone[3] == '5')
-					s = 0;
-				else
-				{
-					cout << "Incorrect phone number, please try again. Be careful:) :";
-					cin >> phone;
-				}
-		cout << "\nWould you confirm personal date? (Yes/No): "; cin >> k;
-		if (k == "Yes")
+		cin >> k;
+		if (k == "Yes" || k == "Да")
 		{
 			customer::personal::personalwrite(a);
-			cout << "\nThank you for full registration!\n" << endl;
+			if(r)
+				cout << "\nThank you for full registration!\n" << endl;
+			else
+				cout << "\nСпасибо за полную регистрацию\n" << endl;
 		}
 		else
-			cout << "Okay!\n" << endl;
+			if(r)
+				cout << "Okay!\n" << endl;
+			else
+				cout << "Хорошо\n" << endl;
 	
 	}
-	void show(customer a)
+	void show(customer a, bool r)
 	{
-		string k;
-		cout << a.firname << " " << a.secname << " " << a.patron << endl;
-		cout << a.address << endl;
-		cout << "Would you see personal date? (Yes/No): "; cin >> k;
-		if (k == "Yes")
+		if(r)
 		{
-			char p[13];
-			cout << "Okay, you need to confirm your phone number : "; 
-			Metka:
-			cin >> p;
-			if(p == a.phone)
-			{
-				cout << "Okay!" << endl;
-				customer::personal::personalread(a);
-			}
-			else 
-			{
-				cout << "Incorrect phone number. Access denied :(" << endl;
-				goto Metka;
-			}
+			string one;
+			string two;
+			cout << "Write diaposon: " << endl;
+			cin >> one;
+			cin >> two;
+			for(int i = 0; i < 19; i++)
+				if(a.data.cardnum[i] >= one[i] || a.data.cardnum[i] <= two[i])
+					get()
 		}
 		else
-			cout << "Okay!" << endl;
+		{
+			string one;
+			string two;
+			cout << "Введите диапозон: " << endl;
+			cin >> one;
+			cin >> two;
+			for(int i = 0; i < 19; i++)
+				if(a.data.cardnum[i] >= one[i] || a.data.cardnum[i] <= two[i])
+		}
+
 	}	
 	void get()
 	{
-		cout << secname << " " << firname << " " << patron << " " << address << endl;
+		cout << "\n" << secname << " " << firname << " " << patron << " " << endl;
 	}
 	
 	void parsing(char* k)
@@ -112,15 +153,29 @@ class customer
 int main()
 {
 	cout << "Massive" << endl;
-	cout << "Hello!!! What is array fill type??? Please choose type (Write/Read): ";
-	
+	cout << "Select language(Eng/Rus):";
+	string q;
+	bool r;
+	cin >> q;
+	if(q == "Eng")
+		r = 1;
+	else
+		r = 0;
+	if(r)
+		cout << "Hello!!! What is array fill type??? Please choose type (Write/Read): ";
+	else
+		cout << "Привет!!! Каким способом заполняем??? Пожалуйста выберите тип (Записывать/Читать)";
 	string t;
 	cin >> t;
 	int n = 0;
 	
-	if(t == "Read")
+	if(t == "Read" || t == "Читать")
 	{
 		string line;
+		if(r)
+			cout << "\nOriginal stream: " << endl;
+		else
+			cout << "\nИсходный поток: " << endl;
 		ifstream text("a.txt"); 
     		if (text.is_open())
     		{
@@ -157,12 +212,10 @@ int main()
 			
 		}
 		text2.close();
-		cout << "N : " << n <<endl;
 	for(int i = 0; i < n; i++)
 		M[i].get();
 	for(int i = 0; i < n; i++)
 		F[i] = &M[i];
-	cout << "Opa4a : " <<  M[0].firname << endl;
 	for(int i = 0; i < n-1; i++)
 		for(int j = i+1; j < n; j++)
 			if(sizeof(M[i].secname) == sizeof(M[j].secname))
@@ -193,27 +246,37 @@ int main()
 					}
 	{
 		string p;
-		cout << "Would you see a list of customers in new form?(Yes/No)"; cin >> p;
-		if(p == "Yes")
+		if(r)
+			cout << "\nWould you see a list of customers in new form?(Yes/No)";
+		else
+			cout << "\nВывести отсортированный список?(Да/Нет)";
+		cin >> p;
+		if(p == "Yes" || p == "Да")
 			for(int i = 0; i < n; i++)
 				M[i].get(F[i]);
 		else
-			cout << "Okay" << endl;
+			if(r)
+				cout << "\nDone!" << endl;
+			else
+				cout << "\nСделано!" << endl;
 	}
 
 	}
 	else
 	{
-		cout << "What is your number of customers?   "; cin >> n;
+		if(r)
+			cout << "\nWhat is your number of customers?   "; 
+		else
+			cout << "\nКакое число клиентов?   ";
+		cin >> n;	
 		customer M[n];
 		customer *F[n];
 		for(int i = 0; i < n; i++)
 		{
-			M[i].set(M[i]);
+			M[i].set(M[i], r);
 			F[i] = &M[i];
 		}
 		cout << endl;
-	cout << "Opa4a : " <<  M[0].firname[2] << endl;
 	for(int i = 0; i < n-1; i++)
 		for(int j = i+1; j < n; j++)
 			if(sizeof(M[i].secname) == sizeof(M[j].secname))
@@ -244,14 +307,24 @@ int main()
 					}
 	{
 		string p;
-		cout << "Would you see a list of customers in new form?(Yes/No)"; cin >> p;
-		if(p == "Yes")
+		if(r)
+			cout << "\nWould you see a list of customers in new form?(Yes/No)"; 
+		else
+			cout << "\nВывести отсортированный список?(Да/Нет)";
+
+		cin >> p;
+		if(p == "Yes" || p == "Да")
 			for(int i = 0; i < n; i++)
 				M[i].get(F[i]);
 		else
-			cout << "Okay" << endl;
+			if(r)
+				cout << "\nDone!!" << endl;
+			else
+				cout << "\nСделано!" << endl; 
 	}
 	}
+	for(int i = 0; i < n; i++)
+
 	
 	return 0;
 }
